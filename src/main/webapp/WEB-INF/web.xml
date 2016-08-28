@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
+    <context-param>
+        <param-name>javax.faces.PROJECT_STAGE</param-name>
+        <param-value>Development</param-value>
+    </context-param>
+    <servlet>
+        <servlet-name>Faces Servlet</servlet-name>
+        <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet>
+        <servlet-name>TestServlet</servlet-name>
+        <servlet-class>io.github.dinolupo.javaee.test.TestServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Faces Servlet</servlet-name>
+        <url-pattern>/faces/*</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>TestServlet</servlet-name>
+        <url-pattern>/backoffice/test</url-pattern>
+    </servlet-mapping>
+    <session-config>
+        <session-timeout>
+            30
+        </session-timeout>
+    </session-config>
+    <!-- SECURITY CONSTRAINT FOR BACKOFFICE -->
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>backoffice</web-resource-name>
+            <url-pattern>/backoffice/*</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>BACKOFFICE</role-name>
+        </auth-constraint>
+        <user-data-constraint>
+            <transport-guarantee>CONFIDENTIAL</transport-guarantee>
+        </user-data-constraint>
+    </security-constraint>
+    <security-role>
+        <description>Backoffice Role Description</description>
+        <role-name>BACKOFFICE</role-name>
+    </security-role>
+    <!--    <login-config>
+        <auth-method>BASIC</auth-method>
+        <realm-name>LdapRealm</realm-name>
+    </login-config>-->
+    <login-config>
+        <auth-method>FORM</auth-method>
+        <realm-name>LdapRealm</realm-name>
+        <form-login-config>
+            <form-login-page>/login.html</form-login-page>
+            <form-error-page>/login-failed.html</form-error-page>
+        </form-login-config>
+    </login-config>
+    
+    <error-page>
+        <!-- Forbidden directory listing -->
+        <error-code>403</error-code>
+        <location>/general-error.jsp</location>
+</error-page>
+    
+    <welcome-file-list>
+        <welcome-file>faces/index.xhtml</welcome-file>
+    </welcome-file-list>
+</web-app>

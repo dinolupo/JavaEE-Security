@@ -1,0 +1,3 @@
+[submodule "ldap-vagrant"]
+	path = ldap-vagrant
+	url = git@github.com:dinolupo/ldap-vagrant.git
