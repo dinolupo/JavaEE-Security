@@ -13,14 +13,32 @@
         <servlet-name>TestServlet</servlet-name>
         <servlet-class>io.github.dinolupo.javaee.test.TestServlet</servlet-class>
     </servlet>
+
+    <!-- Map these files with JSF -->
     <servlet-mapping>
         <servlet-name>Faces Servlet</servlet-name>
         <url-pattern>/faces/*</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+        <servlet-name>Faces Servlet</servlet-name>
+        <url-pattern>*.jsf</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Faces Servlet</servlet-name>
+        <url-pattern>*.faces</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Faces Servlet</servlet-name>
+        <url-pattern>*.xhtml</url-pattern>
+    </servlet-mapping>
+
+    <!-- Test Servlet that prints headers data --> 
+    <servlet-mapping>
         <servlet-name>TestServlet</servlet-name>
         <url-pattern>/backoffice/test</url-pattern>
     </servlet-mapping>
+    
+    
     <session-config>
         <session-timeout>
             30
@@ -39,14 +57,32 @@
             <transport-guarantee>CONFIDENTIAL</transport-guarantee>
         </user-data-constraint>
     </security-constraint>
+    <!-- SECURITY CONSTRAINT FOR CUSTOMER -->
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>customer</web-resource-name>
+            <url-pattern>/customer/*</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>CUSTOMER</role-name>
+        </auth-constraint>
+        <user-data-constraint>
+            <transport-guarantee>CONFIDENTIAL</transport-guarantee>
+        </user-data-constraint>
+    </security-constraint>
+
     <security-role>
         <description>Backoffice Role Description</description>
         <role-name>BACKOFFICE</role-name>
     </security-role>
-    <!--    <login-config>
+    <security-role>
+        <description>Customer Role Description</description>
+        <role-name>CUSTOMER</role-name>
+    </security-role>
+    <!--   <login-config>
         <auth-method>BASIC</auth-method>
         <realm-name>LdapRealm</realm-name>
-    </login-config>-->
+    </login-config>   -->
     <login-config>
         <auth-method>FORM</auth-method>
         <realm-name>LdapRealm</realm-name>
@@ -60,7 +96,7 @@
         <!-- Forbidden directory listing -->
         <error-code>403</error-code>
         <location>/general-error.jsp</location>
-</error-page>
+    </error-page>
     
     <welcome-file-list>
         <welcome-file>faces/index.xhtml</welcome-file>

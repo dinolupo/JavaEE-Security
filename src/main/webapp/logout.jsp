@@ -22,7 +22,7 @@
         %>
 
         <br/><br/>
-        <a href="backoffice/test">Click here to go to test servlet</a>
+<!--        <a href="backoffice/test">Click here to go to test servlet</a>-->
         <a href="index.xhtml">Click here to go to the home page</a>
     </body>
 </html>

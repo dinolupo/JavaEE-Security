@@ -10,13 +10,22 @@
         <title>Java EE 7 Security Demo</title>
     </h:head>
     <h:body>
-        <a href="backoffice/protected.xhtml">Backoffice Folder Protected with WAR Security</a><br/>
-        <a href="public/index.html">Public Folder no required authentication</a><br/>
-        <a href="oauth/index.xhtml">External Provider Protected Pages</a><br/>
-        <a href="backoffice/test">Backoffice Protected Area Test Servlet</a><br/>
-        
-        <a href="logout.jsp">LOGOUT</a><br/>
-    
+
+        <h:outputLabel value="Hello #{request.remoteUser}." rendered="#{not empty request.remoteUser}"/>
+        <h:outputLabel value="Hello Guest." rendered="#{empty request.remoteUser}"/>
+
+        <p:panelGrid columns="1">
+            <p:link href="backoffice/protected.xhtml" value="Backoffice Folder (only users with role BACKOFFICE can access it: eve, frank, grace and henry)"></p:link>
+            <p:link href="customer/index.xhtml" value="Customer Folder (only users with role CUSTOMER can access it: alice, bob, carol and dave)"/> 
+            <p:link href="public/index.html" value="Public Folder no authentication required"/>
+            <p:link href="oauth/index.xhtml" value="External Provider Protected Pages"/>
+            <p:link href="backoffice/test" value="Backoffice Protected Area Test Servlet (only users with role BACKOFFICE can access it: eve, frank, grace and henry)"/>
+        </p:panelGrid>
+
+        <p:panelGrid columns="1" rendered="#{not empty request.remoteUser}">
+            <p:link href="logout.jsp" value="LOGOUT"/>
+        </p:panelGrid>
+
     </h:body>
 </html> 
 

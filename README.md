@@ -2,7 +2,18 @@
 
 This project is an example application to show security of Java EE applications.
 
-To show how LDAP authentication works, start the ldap-vagrant server, then in Glassfish or Payara, configure the following authentication realm:
+Clone this repo with:
+
+`git clone --recursive https://github.com/dinolupo/JavaEE-Security.git`
+
+## Security with LDAP
+
+To show how LDAP authentication and authorization works, start the `ldap-vagrant` server:
+
+	cd ldap-vagrant
+	vagrant up
+
+Then in Glassfish or Payara, configure the following authentication realm:
 
 > payara41/glassfish/domains/domain1/config/domain.xml
 
@@ -20,9 +31,13 @@ To show how LDAP authentication works, start the ldap-vagrant server, then in Gl
 </auth-realm>
 ```
 
-With `ldapphpadmin` (see the readme into the folder ldap-vagrant) configure a group with members alice and bob, then try to authenticate with a member of the group and with another member. 
+You can check with `ldapphpadmin` (see the readme into the folder ldap-vagrant) the ldap configuration if you want. 
 
-> LDAP group configuration
+Now start the server deploy/run the war.
 
-cn=backoffice,dc=vagrant,dc=dev
+Authentication is defined by users configured in the system. For example you can login with the following login and password:
+	
+	alice / password 
+
+Authorization is defined in LDAP using `backoffice` and `clients` groups. Those groups are mapped to roles in the file `glassfish-web.xml`. 
 
